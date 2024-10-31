@@ -63,10 +63,13 @@ def compare_files():
     text_diff_left.delete("1.0", ctk.END)
     text_diff_right.delete("1.0", ctk.END)
 
+    # Dodanie całego tekstu każdego pliku i podświetlenie różnic
     for line in differences:
         if line.startswith("- "):
             text_diff_left.insert(ctk.END, line[2:] + "\n", "highlight")
+            text_diff_right.insert(ctk.END, "\n")
         elif line.startswith("+ "):
+            text_diff_left.insert(ctk.END, "\n")
             text_diff_right.insert(ctk.END, line[2:] + "\n", "highlight")
         elif line.startswith("  "):
             text_diff_left.insert(ctk.END, line[2:] + "\n")
