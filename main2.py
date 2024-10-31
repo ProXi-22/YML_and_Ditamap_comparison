@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, Scrollbar, RIGHT, Y, X, BOTH
 import yaml
 import xml.etree.ElementTree as ET
 from difflib import Differ
@@ -63,13 +63,11 @@ def compare_files():
     text_diff_left.delete("1.0", ctk.END)
     text_diff_right.delete("1.0", ctk.END)
 
-    # Dodanie całego tekstu każdego pliku i podświetlenie różnic
+    # Wstawienie całego tekstu dla obu plików z podświetleniem różnic
     for line in differences:
         if line.startswith("- "):
             text_diff_left.insert(ctk.END, line[2:] + "\n", "highlight")
-            text_diff_right.insert(ctk.END, "\n")
         elif line.startswith("+ "):
-            text_diff_left.insert(ctk.END, "\n")
             text_diff_right.insert(ctk.END, line[2:] + "\n", "highlight")
         elif line.startswith("  "):
             text_diff_left.insert(ctk.END, line[2:] + "\n")
@@ -107,20 +105,41 @@ button_compare = ctk.CTkButton(root, text="Porównaj", command=compare_files)
 button_compare.grid(row=2, column=1, padx=10, pady=10)
 
 # Pola tekstowe dla porównań
-frame_diff = ctk.CTkFrame(root)
+frame_diff = ctk.CTkFrame(root, bg_color="white")
 frame_diff.grid(row=3, column=0, columnspan=3, padx=10, pady=10, sticky="nsew")
 
-text_diff_left = ctk.CTkTextbox(frame_diff, width=40, height=20)
-text_diff_left.grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
-text_diff_left.tag_config("highlight", background="yellow")
-
-text_diff_right = ctk.CTkTextbox(frame_diff, width=40, height=20)
-text_diff_right.grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
-text_diff_right.tag_config("highlight", background="yellow")
-
-# Konfiguracja dynamicznego rozmiaru
+# Konfiguracja skalowalności
 root.grid_rowconfigure(3, weight=1)
 root.grid_columnconfigure(1, weight=1)
+frame_diff.grid_columnconfigure(0, weight=1)
+frame_diff.grid_columnconfigure(1, weight=1)
+
+# Pole tekstowe i suwak dla YAML
+text_diff_left = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=40, height=20)
+text_diff_left.grid(row=0, column=0, padx=(5, 0), pady=5, sticky="nsew")
+text_diff_left.tag_config("highlight", background="yellow")
+
+scroll_y_left = Scrollbar(frame_diff, orient="vertical", command=text_diff_left.yview)
+scroll_y_left.grid(row=0, column=0, sticky="nse")
+text_diff_left.config(yscrollcommand=scroll_y_left.set)
+
+# Pole tekstowe i suwak dla DITAMAP
+text_diff_right = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=40, height=20)
+text_diff_right.grid(row=0, column=1, padx=(0, 5), pady=5, sticky="nsew")
+text_diff_right.tag_config("highlight", background="yellow")
+
+scroll_y_right = Scrollbar(frame_diff, orient="vertical", command=text_diff_right.yview)
+scroll_y_right.grid(row=0, column=1, sticky="nse")
+text_diff_right.config(yscrollcommand=scroll_y_right.set)
+
+# Dodanie suwaków poziomych
+scroll_x_left = Scrollbar(frame_diff, orient="horizontal", command=text_diff_left.xview)
+scroll_x_left.grid(row=1, column=0, sticky="sew")
+text_diff_left.config(xscrollcommand=scroll_x_left.set)
+
+scroll_x_right = Scrollbar(frame_diff, orient="horizontal", command=text_diff_right.xview)
+scroll_x_right.grid(row=1, column=1, sticky="sew")
+text_diff_right.config(xscrollcommand=scroll_x_right.set)
 
 # Uruchomienie głównej pętli
 root.mainloop()
