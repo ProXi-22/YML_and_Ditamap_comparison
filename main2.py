@@ -132,7 +132,7 @@ scroll_y_right = Scrollbar(frame_diff, orient="vertical", command=text_diff_righ
 scroll_y_right.grid(row=0, column=1, sticky="nse")
 text_diff_right.config(yscrollcommand=scroll_y_right.set)
 
-# Dodanie suwaków poziomych
+# Dodanie suwakow poziomych
 scroll_x_left = Scrollbar(frame_diff, orient="horizontal", command=text_diff_left.xview)
 scroll_x_left.grid(row=1, column=0, sticky="sew")
 text_diff_left.config(xscrollcommand=scroll_x_left.set)
