@@ -121,7 +121,7 @@ text_diff_left.tag_config("highlight", background="yellow")
 
 scroll_y_left = Scrollbar(frame_diff, orient="vertical", command=text_diff_left.yview)
 scroll_y_left.grid(row=0, column=0, sticky="nse")
-text_diff_left.config(yscrollcommand=scroll_y_left.set)
+text_diff_left.configure(yscrollcommand=scroll_y_left.set)
 
 # Pole tekstowe i suwak dla DITAMAP
 text_diff_right = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=40, height=20)
@@ -130,16 +130,16 @@ text_diff_right.tag_config("highlight", background="yellow")
 
 scroll_y_right = Scrollbar(frame_diff, orient="vertical", command=text_diff_right.yview)
 scroll_y_right.grid(row=0, column=1, sticky="nse")
-text_diff_right.config(yscrollcommand=scroll_y_right.set)
+text_diff_right.configure(yscrollcommand=scroll_y_right.set)
 
-# Dodanie suwakow poziomych
+# Dodanie suwaków poziomych
 scroll_x_left = Scrollbar(frame_diff, orient="horizontal", command=text_diff_left.xview)
 scroll_x_left.grid(row=1, column=0, sticky="sew")
-text_diff_left.config(xscrollcommand=scroll_x_left.set)
+text_diff_left.configure(xscrollcommand=scroll_x_left.set)
 
 scroll_x_right = Scrollbar(frame_diff, orient="horizontal", command=text_diff_right.xview)
 scroll_x_right.grid(row=1, column=1, sticky="sew")
-text_diff_right.config(xscrollcommand=scroll_x_right.set)
+text_diff_right.configure(xscrollcommand=scroll_x_right.set)
 
 # Uruchomienie głównej pętli
 root.mainloop()
