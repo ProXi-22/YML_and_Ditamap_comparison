@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\mistanis\Desktop\Python\YML_and_Ditamap_comparison\main2.py", line 124, in <module>
+    text_diff_left.config(yscrollcommand=scroll_y_left.set)
+  File "C:\apps\python3\Lib\site-packages\customtkinter\windows\widgets\core_widget_classes\ctk_base_class.py", line 111, in config
+    raise AttributeError("'config' is not implemented for CTk widgets. For consistency, always use 'configure' instead.")
+AttributeError: 'config' is not implemented for CTk widgets. For consistency, always use 'configure' instead.
