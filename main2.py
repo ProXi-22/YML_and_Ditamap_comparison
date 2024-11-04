@@ -47,7 +47,7 @@ def compare_files():
     ditamap_file = entry_ditamap.get()
 
     if not yml_file or not ditamap_file:
-        messagebox.showwarning("Ostrzeżenie", "Wybierz oba pliki do porównania!")
+        messagebox.showwarning("Warning!", "Choose both files for comparison!")
         return
 
     try:
@@ -55,7 +55,7 @@ def compare_files():
         yml_text = extract_text_from_yml(yml_data)
         ditamap_text = read_ditamap(ditamap_file)
     except Exception as e:
-        messagebox.showerror("Błąd", f"Wystąpił problem z odczytem plików: {e}")
+        messagebox.showerror("Error", f"There is a problem with reading the files: {e}")
         return
 
     differences = compare_texts(yml_text, ditamap_text)
@@ -75,10 +75,10 @@ def compare_files():
 
 # Tworzenie głównego okna
 root = ctk.CTk()
-root.title("Porównanie plików YAML i DITAMAP")
+root.title("Comparison of YAML and DITAMAP files")
 
 # Centrowanie okna na środku ekranu
-window_width, window_height = 800, 600
+window_width, window_height = 1600, 800
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 x_cord = int((screen_width / 2) - (window_width / 2))
@@ -86,22 +86,22 @@ y_cord = int((screen_height / 2) - (window_height / 2))
 root.geometry(f"{window_width}x{window_height}+{x_cord}+{y_cord}")
 
 # Etykiety i przyciski wyboru plików
-label_yml = ctk.CTkLabel(root, text="Wybierz plik YAML:")
+label_yml = ctk.CTkLabel(root, text="Choose YAML file:")
 label_yml.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 entry_yml = ctk.CTkEntry(root, width=400)
 entry_yml.grid(row=0, column=1, padx=10, pady=10)
-button_yml = ctk.CTkButton(root, text="Wybierz plik", command=open_file_yml)
+button_yml = ctk.CTkButton(root, text="Choose file", command=open_file_yml)
 button_yml.grid(row=0, column=2, padx=10, pady=10)
 
-label_ditamap = ctk.CTkLabel(root, text="Wybierz plik DITAMAP:")
+label_ditamap = ctk.CTkLabel(root, text="Choose DITAMAP file:")
 label_ditamap.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 entry_ditamap = ctk.CTkEntry(root, width=400)
 entry_ditamap.grid(row=1, column=1, padx=10, pady=10)
-button_ditamap = ctk.CTkButton(root, text="Wybierz plik", command=open_file_ditamap)
+button_ditamap = ctk.CTkButton(root, text="Choose file", command=open_file_ditamap)
 button_ditamap.grid(row=1, column=2, padx=10, pady=10)
 
 # Przycisk porównania
-button_compare = ctk.CTkButton(root, text="Porównaj", command=compare_files)
+button_compare = ctk.CTkButton(root, text="Compare", command=compare_files)
 button_compare.grid(row=2, column=1, padx=10, pady=10)
 
 # Pola tekstowe dla porównań
@@ -115,7 +115,7 @@ frame_diff.grid_columnconfigure(0, weight=1)
 frame_diff.grid_columnconfigure(1, weight=1)
 
 # Pole tekstowe i suwak dla YAML
-text_diff_left = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=40, height=20)
+text_diff_left = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=800, height=1000)
 text_diff_left.grid(row=0, column=0, padx=(5, 0), pady=5, sticky="nsew")
 text_diff_left.tag_config("highlight", background="yellow")
 
@@ -124,7 +124,7 @@ scroll_y_left.grid(row=0, column=0, sticky="nse")
 text_diff_left.configure(yscrollcommand=scroll_y_left.set)
 
 # Pole tekstowe i suwak dla DITAMAP
-text_diff_right = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=40, height=20)
+text_diff_right = ctk.CTkTextbox(frame_diff, fg_color="white", text_color="black", width=800, height=1000)
 text_diff_right.grid(row=0, column=1, padx=(0, 5), pady=5, sticky="nsew")
 text_diff_right.tag_config("highlight", background="yellow")
 
